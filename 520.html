@@ -539,7 +539,6 @@
         if (p.y < 0 || p.y > h) p.vy *= -1;
         p.x = Math.max(0, Math.min(w, p.x));
         p.y = Math.max(0, Math.min(h, p.y));
-
         var alphaMod = p.alpha + Math.sin(t * 2 + p.pulse) * 0.15;
         alphaMod = Math.max(0.1, Math.min(0.9, alphaMod));
 
