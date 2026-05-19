@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>520 我爱你 ❤</title>
+<title>520 I LOVE YOU ❤</title>
 <meta name="description" content="520情人节快乐，这是我想对你说的话。">
-<meta property="og:title" content="520 我爱你 ❤">
+<meta property="og:title" content="520 I LOVE YOU ❤">
 <meta property="og:description" content="520情人节快乐，这是我想对你说的话。">
 <meta property="og:type" content="website">
 <style>
@@ -343,6 +343,79 @@
     .container { max-width: 860px; }
     .photo-frame { width: 260px; }
   }
+
+  /* 爱心特效样式 */
+  .heart-trail {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 20px;
+    animation: trailFade 1s ease-out forwards;
+  }
+
+  @keyframes trailFade {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.5) translateY(-30px); }
+  }
+
+  .heart-explosion {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 24px;
+    animation: explode 1.5s ease-out forwards;
+  }
+
+  @keyframes explode {
+    0% { 
+      opacity: 1; 
+      transform: scale(0) rotate(0deg); 
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.5) rotate(180deg);
+    }
+    100% { 
+      opacity: 0; 
+      transform: scale(0.3) rotate(360deg) translateY(-100px); 
+    }
+  }
+
+  .heart-rain {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    font-size: 16px;
+    animation: rainFall linear forwards;
+  }
+
+  @keyframes rainFall {
+    0% { 
+      opacity: 0.8; 
+      transform: translateY(-10vh) rotate(0deg); 
+    }
+    100% { 
+      opacity: 0; 
+      transform: translateY(110vh) rotate(360deg); 
+    }
+  }
+
+  .glow-effect {
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes glowPulse {
+    0%, 100% { 
+      box-shadow: 0 0 20px rgba(255, 107, 157, 0.4), 0 0 40px rgba(255, 107, 157, 0.2);
+    }
+    50% { 
+      box-shadow: 0 0 30px rgba(255, 107, 157, 0.8), 0 0 60px rgba(255, 107, 157, 0.4), 0 0 80px rgba(255, 107, 157, 0.2);
+    }
+  }
+
+  .photo-frame .img-wrap {
+    animation: glowPulse 2s ease-in-out infinite;
+  }
 </style>
 </head>
 <body>
@@ -356,7 +429,7 @@
     <div class="date-badge">
       <span class="dot"></span>2026年5月20日<span class="dot"></span>
     </div>
-    <div class="title-line">520 · 我爱你</div>
+    <div class="title-line">王怡 · I LOVE YOU</div>
     <p class="subtitle" id="subtitleEl"></p>
   </div>
 
@@ -365,7 +438,7 @@
     <div class="ring"></div>
     <div class="ring"></div>
     <div class="img-wrap">
-      <span class="placeholder">💕</span>
+      <img src="./爱人.jpg" alt="我们的照片" />
     </div>
   </div>
 
@@ -377,7 +450,7 @@
 
   <div class="counter-section">
     <div class="counter-item">
-      <div class="num" id="cntDays">--</div>
+      <div class="num" id="cntDays">91</div>
       <div class="label">相识天数</div>
     </div>
     <div class="counter-item">
@@ -414,16 +487,16 @@
 <script>
 (function() {
 
-  const now = new Date(2026, 4, 20);
-  const startDate = new Date(2024, 4, 20);
-  const diffDays = Math.floor((now - startDate) / 86400000);
+  const meetDate = new Date(2026, 1, 18);
+  const now = new Date();
+  const diffDays = Math.floor((now - meetDate) / 86400000);
 
   document.getElementById('cntDays').textContent = diffDays;
 
   const quotes = [
-    '遇\x89c1你，\u662f\u6211\u4e00\u751f\u6700美\u597d\u7684意外\u3002\u4ece初见\u7684心动\uff0c\u5230如\u4eca的深情\u3002',
+    '遇\x89到你，\u662f\u6211\u4e00\u751f\u6700美\u597d\u7684意外\u3002\u4ece初见\u7684心动\uff0c\u5230如\u4eca的深情\u3002',
     '世\u754c很大，幸\u597d遇\u89c1\u4f60\u3002\u4ece此\u5c81\u5c81\u5e74\u5e74\uff0c只愿与\u4f60\u643a\u624b同行\u3002',
-    '\u4f60是\u6211心\u4e2d最温\u67d4的\u89d2落\uff0c\u662f\u6211\u4eba\u751f最\u7f8e\u7684\u5f52宿\u3002520\uff0c\u6211爱\u4f60\u3002'
+    '\u4f60是\u6211心\u4e2d最温\u67d4的\u89d2落\uff0c\u662f\u6211\u4eba\u751f最\u7f8e\u7684\u5f52宿\u3002宝宝\uff0c\u6211爱\u4f60\u3002'
   ];
 
   const idx = Math.floor(Math.random() * quotes.length);
@@ -447,20 +520,40 @@
 
   function startTime() {
     const n = new Date();
-    const h = n.getHours(), m = n.getMinutes(), s = n.getSeconds();
-    const ms = n.getMilliseconds();
-    const nowMs = h * 3600000 + m * 60000 + s * 1000 + ms;
-    const target = 20 * 3600000 + 14 * 60000 + 0 * 1000;
-    const remain = target - nowMs;
+    const nowYear = n.getFullYear();
+    const nowMonth = n.getMonth();
+    const nowDate = n.getDate();
+    const nowHours = n.getHours();
+    const nowMinutes = n.getMinutes();
+    const nowSeconds = n.getSeconds();
+
+    const targetDate = new Date(nowYear, 4, 20, 14, 0, 0);
+    const now = new Date(nowYear, nowMonth, nowDate, nowHours, nowMinutes, nowSeconds);
+    const remain = targetDate - now;
+
+    const el = document.querySelector('.date-badge');
+    if (!el) return;
+
     if (remain > 0) {
-      const rh = Math.floor(remain / 3600000);
-      const rm = Math.floor((remain % 3600000) / 60000);
-      const rs = Math.floor((remain % 60000) / 1000);
-      const el = document.querySelector('.date-badge');
-      if (el) {
-        el.innerHTML = '<span class="dot"></span>距离5月20日 14:00 还有 '
-          + rh + '时' + rm + '分' + rs + '秒<span class="dot"></span>';
-      }
+      const days = Math.floor(remain / 86400000);
+      const hours = Math.floor((remain % 86400000) / 3600000);
+      const minutes = Math.floor((remain % 3600000) / 60000);
+      const seconds = Math.floor((remain % 60000) / 1000);
+
+      let timeText = '';
+      if (days > 0) timeText += days + '天';
+      if (days > 0 || hours > 0) timeText += hours + '时';
+      timeText += minutes + '分' + seconds + '秒';
+
+      el.innerHTML = '<span class="dot"></span>距离5月20日 14:00 还有 ' + timeText + '<span class="dot"></span>';
+    } else if (remain > -86400000) {
+      el.innerHTML = '<span class="dot"></span>🎉 520情人节快乐！<span class="dot"></span>';
+    } else {
+      const nextYear = nowYear + 1;
+      const nextTarget = new Date(nextYear, 4, 20, 14, 0, 0);
+      const nextRemain = nextTarget - now;
+      const days = Math.floor(nextRemain / 86400000);
+      el.innerHTML = '<span class="dot"></span>距离明年520还有 ' + days + '天<span class="dot"></span>';
     }
   }
   startTime();
@@ -631,6 +724,168 @@
     } else {
       startHearts();
     }
+  });
+
+  /* ========== 绚丽爱心特效 ========== */
+  
+  // 1. 鼠标跟随爱心轨迹
+  let lastTrailTime = 0;
+  document.addEventListener('mousemove', function(e) {
+    const now = Date.now();
+    if (now - lastTrailTime < 50) return; // 限制生成频率
+    lastTrailTime = now;
+    
+    const emojis = ['💖', '💕', '💗', '💝', '💘', '💓', '💞', '❤️', '🩷', '💜'];
+    const heart = document.createElement('span');
+    heart.className = 'heart-trail';
+    heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    heart.style.left = e.clientX + 'px';
+    heart.style.top = e.clientY + 'px';
+    heart.style.fontSize = (12 + Math.random() * 16) + 'px';
+    document.body.appendChild(heart);
+    
+    setTimeout(() => heart.remove(), 1000);
+  });
+
+  // 2. 点击爱心爆炸效果
+  document.addEventListener('click', function(e) {
+    const emojis = ['💖', '💕', '💗', '💝', '💘', '💓', '💞', '❤️', '🩷', '💜', '💛', '💚', '💙'];
+    const colors = ['#ff6b9d', '#f78fb3', '#f7d794', '#c44569', '#ff9ff3', '#feca57'];
+    
+    // 生成爆炸爱心
+    for (let i = 0; i < 12; i++) {
+      setTimeout(() => {
+        const heart = document.createElement('span');
+        heart.className = 'heart-explosion';
+        heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        // 随机方向散开
+        const angle = (i / 12) * Math.PI * 2;
+        const distance = 50 + Math.random() * 100;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance - 50;
+        
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        heart.style.setProperty('--tx', tx + 'px');
+        heart.style.setProperty('--ty', ty + 'px');
+        heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+        heart.style.fontSize = (16 + Math.random() * 20) + 'px';
+        
+        // 自定义动画
+        heart.animate([
+          { transform: 'scale(0) rotate(0deg)', opacity: 1 },
+          { transform: `scale(1.5) rotate(${180 + Math.random() * 180}deg)`, opacity: 0.8, offset: 0.5 },
+          { transform: `scale(0.3) rotate(${360 + Math.random() * 360}deg) translate(${tx}px, ${ty}px)`, opacity: 0 }
+        ], {
+          duration: 1500 + Math.random() * 500,
+          easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        }).onfinish = () => heart.remove();
+        
+        document.body.appendChild(heart);
+      }, i * 30);
+    }
+  });
+
+  // 3. 爱心雨效果
+  function createHeartRain() {
+    const emojis = ['💖', '💕', '💗', '💝', '💘', '💓', '💞', '❤️', '🩷', '💜'];
+    
+    for (let i = 0; i < 3; i++) {
+      const heart = document.createElement('span');
+      heart.className = 'heart-rain';
+      heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.top = '-50px';
+      heart.style.fontSize = (12 + Math.random() * 20) + 'px';
+      heart.style.animationDuration = (3 + Math.random() * 4) + 's';
+      heart.style.animationDelay = Math.random() * 2 + 's';
+      heart.style.opacity = 0.3 + Math.random() * 0.5;
+      document.body.appendChild(heart);
+      
+      heart.addEventListener('animationend', () => heart.remove());
+    }
+  }
+  
+  // 启动爱心雨
+  setInterval(createHeartRain, 300);
+
+  // 4. 照片框点击特效
+  const photoFrame = document.querySelector('.photo-frame');
+  if (photoFrame) {
+    photoFrame.addEventListener('click', function(e) {
+      e.stopPropagation(); // 防止触发全局点击
+      
+      // 创建环绕爱心
+      const emojis = ['💖', '💕', '💗', '💝', '💘'];
+      const rect = photoFrame.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('span');
+          heart.style.position = 'fixed';
+          heart.style.left = centerX + 'px';
+          heart.style.top = centerY + 'px';
+          heart.style.fontSize = '24px';
+          heart.style.pointerEvents = 'none';
+          heart.style.zIndex = '9999';
+          heart.textContent = emojis[i % emojis.length];
+          
+          const angle = (i / 8) * Math.PI * 2;
+          const distance = 100 + Math.random() * 50;
+          
+          heart.animate([
+            { transform: 'scale(0)', opacity: 1 },
+            { transform: `scale(1.2) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`, opacity: 0.8, offset: 0.5 },
+            { transform: `scale(0) translate(${Math.cos(angle) * distance * 1.5}px, ${Math.sin(angle) * distance * 1.5}px)`, opacity: 0 }
+          ], {
+            duration: 1200,
+            easing: 'ease-out'
+          }).onfinish = () => heart.remove();
+          
+          document.body.appendChild(heart);
+        }, i * 80);
+      }
+    });
+  }
+
+  // 5. 页面加载完成后的庆祝特效
+  window.addEventListener('load', function() {
+    setTimeout(() => {
+      // 从中心爆发爱心
+      const emojis = ['💖', '💕', '💗', '💝', '💘', '💓', '💞', '❤️', '🩷', '💜'];
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('span');
+          heart.style.position = 'fixed';
+          heart.style.left = centerX + 'px';
+          heart.style.top = centerY + 'px';
+          heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+          heart.style.pointerEvents = 'none';
+          heart.style.zIndex = '9999';
+          heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 100 + Math.random() * 200;
+          
+          heart.animate([
+            { transform: 'scale(0)', opacity: 1 },
+            { transform: `scale(1.5) translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`, opacity: 0.8, offset: 0.3 },
+            { transform: `scale(0.5) translate(${Math.cos(angle) * distance * 1.5}px, ${Math.sin(angle) * distance * 1.5}px)`, opacity: 0 }
+          ], {
+            duration: 2000 + Math.random() * 1000,
+            easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+          }).onfinish = () => heart.remove();
+          
+          document.body.appendChild(heart);
+        }, i * 50);
+      }
+    }, 800);
   });
 
 })();
