@@ -1,4 +1,4 @@
-name: Deploy 520 Page Only
+name: Deploy 520 Page to GitHub Pages
 
 on:
   push:
@@ -9,6 +9,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,18 +18,25 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4使用：actions/checkout@v4
-      
-      - name: Prepare 520 page
+        uses: actions/checkout@v4
+
+      - name: Prepare deploy directory
         run: |
           mkdir -p _site
           cp 520.html _site/index.html
-      
+          cp "爱人.jpg" _site/爱人.jpg
+
+      - name: Verify build output
+        run: |
+          echo "=== Deploy directory contents ==="
+          ls -la _site/
+          echo "=== index.html size: $(wc -c < _site/index.html) bytes ==="
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '_site'
-      
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
